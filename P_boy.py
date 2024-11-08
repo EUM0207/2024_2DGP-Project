@@ -3,7 +3,7 @@ from P_state_machine import StateMachine, right_down, left_down, right_up, left_
 
 class Boy:
     def __init__(self):
-        self.x, self.y = 400, 90
+        self.x, self.y = 400, 240
         self.frame = 0
         self.image = load_image('Character_Zero_c.png')
         self.scale = 0.5  # 크기 축소 비율
@@ -44,7 +44,7 @@ class Idle:
     @staticmethod
     def draw(boy):
         boy.image.clip_draw(
-            boy.frame * 100, 700, 100, 100,  # Idle 스프라이트 위치
+            boy.frame * 70, 900, 70, 70,  # Idle 스프라이트 위치
             boy.x, boy.y, 100 * boy.scale, 100 * boy.scale
         )
 
