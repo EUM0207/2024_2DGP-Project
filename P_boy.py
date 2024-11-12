@@ -27,7 +27,8 @@ class Boy:
 
 # 상태 클래스 정의
 class Idle:
-    frame_count = 10  # Idle 상태는 10 프레임
+    frame_count = 10  # 10 프레임
+    y_offset = 0  # Idle 상태는 첫 번째 행에 위치
 
     @staticmethod
     def enter(boy, event):
@@ -39,18 +40,20 @@ class Idle:
 
     @staticmethod
     def do(boy):
-        boy.frame = (boy.frame + 1) % Idle.frame_count  # Idle 애니메이션
+        boy.frame = (boy.frame + 1) % Idle.frame_count
 
     @staticmethod
     def draw(boy):
         boy.image.clip_draw(
-            boy.frame * 70, 900, 70, 70,  # Idle 스프라이트 위치
+            boy.frame * 100, Idle.y_offset, 100, 100,  # 프레임 위치 계산
             boy.x, boy.y, 100 * boy.scale, 100 * boy.scale
         )
 
 
+
 class Run:
-    frame_count = 10  # Run 상태는 10 프레임
+    frame_count = 10  # 10 프레임
+    y_offset = 100  # Run 상태는 두 번째 행에 위치
 
     @staticmethod
     def enter(boy, event):
@@ -62,12 +65,35 @@ class Run:
 
     @staticmethod
     def do(boy):
-        boy.frame = (boy.frame + 1) % Run.frame_count  # Run 애니메이션
+        boy.frame = (boy.frame + 1) % Run.frame_count
 
     @staticmethod
     def draw(boy):
         boy.image.clip_draw(
-            boy.frame * 100, 600, 100, 100,  # Run 스프라이트 위치
+            boy.frame * 100, Run.y_offset, 100, 100,  # 프레임 위치 계산
+            boy.x, boy.y, 100 * boy.scale, 100 * boy.scale
+        )
+
+class Walk:
+    frame_count = 8  # 8 프레임
+    y_offset = 200  # Walk 상태는 세 번째 행에 위치
+
+    @staticmethod
+    def enter(boy, event):
+        boy.frame = 0
+
+    @staticmethod
+    def exit(boy, event):
+        pass
+
+    @staticmethod
+    def do(boy):
+        boy.frame = (boy.frame + 1) % Walk.frame_count
+
+    @staticmethod
+    def draw(boy):
+        boy.image.clip_draw(
+            boy.frame * 100, Walk.y_offset, 100, 100,  # 프레임 위치 계산
             boy.x, boy.y, 100 * boy.scale, 100 * boy.scale
         )
 
@@ -94,27 +120,7 @@ class Crouch:
         )
 
 
-class Walk:
-    frame_count = 8  # Walk 상태는 8 프레임
 
-    @staticmethod
-    def enter(boy, event):
-        boy.frame = 0
-
-    @staticmethod
-    def exit(boy, event):
-        pass
-
-    @staticmethod
-    def do(boy):
-        boy.frame = (boy.frame + 1) % Walk.frame_count  # Walk 애니메이션
-
-    @staticmethod
-    def draw(boy):
-        boy.image.clip_draw(
-            boy.frame * 100, 500, 100, 100,  # Walk 스프라이트 위치
-            boy.x, boy.y, 100 * boy.scale, 100 * boy.scale
-        )
 
 
 class Jump:
